@@ -18,7 +18,7 @@ const Info = () => {
 
 
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 px-9 mb-2'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mb-2'>
             <InfoCard cardInfo={clock}></InfoCard>
             <InfoCard cardInfo={location}></InfoCard>
             <InfoCard cardInfo={phone}></InfoCard>
