@@ -43,7 +43,12 @@ const Testimonial = () => {
 
                                 <p className='font-semibold'>{testimonial.detail}</p>
                                 <div className='grid grid-cols-2 items-center mt-5'>
-                                    <img src={testimonial.img} alt="" />
+                                    {/* <img src={testimonial.img} alt="" /> */}
+                                    <div class="avatar">
+                                        <div class="w-24 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                                            <img src={testimonial.img} alt="" />
+                                        </div>
+                                    </div>
 
                                     <div >
                                         <h2 className='text-xl font-bold'>{testimonial.name}</h2>
