@@ -11,11 +11,11 @@ const HomeContactUs = () => {
 
             <form className='mt-5'>
 
-                <input type="text" placeholder="Email Address" class="input w-full max-w-xs mb-5" /> <br />
+                <input type="text" placeholder="Email Address" className="input w-full max-w-xs mb-5" /> <br />
 
-                <input type="text" placeholder="Subject" class="input w-full max-w-xs mb-5" /> <br />
+                <input type="text" placeholder="Subject" className="input w-full max-w-xs mb-5" /> <br />
 
-                <textarea class="textarea w-full max-w-xs mb-5" placeholder="Your message"></textarea>  <br />
+                <textarea className="textarea w-full max-w-xs mb-5" placeholder="Your message"></textarea>  <br />
 
                 <PrimaryButton>Submit</PrimaryButton>
 

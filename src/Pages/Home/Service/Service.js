@@ -4,12 +4,12 @@ const Service = ({ service }) => {
 
     const { title, detail, img } = service;
     return (
-        <div class="card w-auto shadow-md">
-            <figure class="px-10 pt-10">
-                <img className='w-auto sm:display:none' src={img} alt={title} class="rounded-xl" />
+        <div className="card w-auto shadow-md">
+            <figure className="px-10 pt-10">
+                <img className='w-auto sm:display:none rounded-xl' src={img} alt={title} />
             </figure>
-            <div class="card-body items-center text-center">
-                <h2 class="card-title">{title}</h2>
+            <div className="card-body items-center text-center">
+                <h2 className="card-title">{title}</h2>
                 <p>{detail}</p>
 
             </div>

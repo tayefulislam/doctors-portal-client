@@ -36,16 +36,16 @@ const Testimonial = () => {
 
                 {
                     testimonials.map(testimonial =>
-                        <div class="card w-auto bg-base-100 shadow-xl">
+                        <div key={testimonial.id} className="card w-auto bg-base-100 shadow-xl">
 
 
-                            <div class="card-body w-auto items-center">
+                            <div className="card-body w-auto items-center">
 
                                 <p className='font-semibold'>{testimonial.detail}</p>
                                 <div className='grid grid-cols-2 items-center mt-5'>
                                     {/* <img src={testimonial.img} alt="" /> */}
-                                    <div class="avatar">
-                                        <div class="w-24 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                                    <div className="avatar">
+                                        <div className="w-24 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
                                             <img src={testimonial.img} alt="" />
                                         </div>
                                     </div>
