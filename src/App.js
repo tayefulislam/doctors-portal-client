@@ -4,11 +4,12 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './Pages/Shared/Navbar/Navbar';
 import Home from './Pages/Home/Home';
 import About from './Pages/About/About';
+import Appointment from './Pages/Appointment/Appointment';
 
 
 function App() {
   return (
-    <div>
+    <div className='max-w-7xl mx-auto'>
 
 
       <Navbar></Navbar>
@@ -18,6 +19,7 @@ function App() {
 
         <Route path="/" element={<Home></Home>}> </Route>
         <Route path='/about' element={<About></About>}> </Route>
+        <Route path='/appoinment' element={<Appointment></Appointment>}> </Route>
 
 
 
