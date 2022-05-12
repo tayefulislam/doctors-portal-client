@@ -1,14 +1,24 @@
 import { format } from 'date-fns';
 import React from 'react';
 
-const BookingModal = ({ treatment, date }) => {
+const BookingModal = ({ treatment, date, setTreatment }) => {
 
     const { name, slots } = treatment;
 
     const handleSubmit = event => {
-        event.preventDefualt()
+        event.preventDefault()
+
+        const date = event.target.date.value;
         const time = event.target.time.value;
-        console.log(time)
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const number = event.target.number.value;
+
+        const book = { date, time, name, email, number }
+
+
+        console.log(book)
+        setTreatment(null)
     }
 
     return (
@@ -36,11 +46,11 @@ const BookingModal = ({ treatment, date }) => {
                         </select>
 
 
-                        <input type="text" name='name' placeholder="Your Name" class="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='name' required placeholder="Your Name" class="input input-bordered w-full max-w-xs" />
 
-                        <input type="email" name='email' placeholder="Email" class="input input-bordered w-full max-w-xs" />
+                        <input type="email" name='email' required placeholder="Email" class="input input-bordered w-full max-w-xs" />
 
-                        <input type="text" name='number' placeholder="Phone Number" class="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='number' required placeholder="Phone Number" class="input input-bordered w-full max-w-xs" />
 
 
                         <input type="submit" value="SUBMIT" class="btn btn-secondary  w-full max-w-xs" />
