@@ -16,7 +16,7 @@ const Service = ({ service }) => {
                 <p>{slots.length} {slots.length > 1 ? 'SPACES' : 'SPACE'} AVAILABLE</p>
 
                 <div class="card-actions justify-center">
-                    <button class="btn btn-secondary">Buy Now</button>
+                    <button disabled={slots.length === 0} class="btn btn-secondary">Book Appointment</button>
                 </div>
             </div>
         </div>
