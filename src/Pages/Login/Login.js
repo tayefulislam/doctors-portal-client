@@ -3,15 +3,12 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 import auth from './../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading/Loading';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 
 
 
 const Login = () => {
-
-
-
 
 
     const [
@@ -30,7 +27,14 @@ const Login = () => {
 
 
     let allErrors;
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
+
+
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+
 
     if (loading || gLoading) {
         // signInLoading = <progress class="progress w-full"></progress>
@@ -45,9 +49,11 @@ const Login = () => {
     }
 
 
+    if (gUser || user) {
+        console.log(user || gUser)
+        navigate(from, { replace: true });
 
-
-
+    }
 
 
     const onSubmit = data => {
@@ -55,13 +61,6 @@ const Login = () => {
         signInWithEmailAndPassword(data.email, data.password)
 
     };
-
-
-    if (gUser || user) {
-        console.log(user || gUser)
-        navigate('/')
-
-    }
 
 
 
