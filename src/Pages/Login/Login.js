@@ -1,25 +1,158 @@
 import React from 'react';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import auth from './../../firebase.init'
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from './../../firebase.init';
+import { useForm } from "react-hook-form";
+import Loading from '../Shared/Loading/Loading';
+
+
+
 const Login = () => {
 
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
-    if (user) {
-        console.log(user)
+
+
+
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+
+
+
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    let signInLoading;
+    let allErrors;
+
+    if (loading || gLoading) {
+        // signInLoading = <progress class="progress w-full"></progress>
+        return <Loading></Loading>
+
     }
+
+    if (error || gError) {
+
+        allErrors = `${error?.message || gError?.message}`
+
+    }
+
+
+
+
+
+
+
+    const onSubmit = data => {
+        console.log(data)
+        signInWithEmailAndPassword(data.email, data.password)
+
+    };
+
+
+    if (gUser || user) {
+        console.log(user || gUser)
+
+    }
+
+
+
+
 
     return (
         <div className='flex justify-center items-center h-screen'>
-            <div class="card w-96 bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <h2 class="text-center text-2xl font-bold">Login</h2>
+            <div className="card w-96 bg-base-100 shadow-xl">
+                <div className="card-body">
+                    <h2 className="text-center text-2xl font-bold">Login</h2>
 
 
-                    <div class="divider">OR</div>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Email</span>
+
+                            </label>
+
+                            <input type="text"
+                                placeholder="Type here"
+                                className="input input-bordered w-full max-w-xs"
+                                {...register("email", {
+
+                                    required: {
+                                        value: true,
+                                        message: 'Please Enter A Email Address'
+                                    },
+
+                                    pattern: {
+                                        value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                                        message: 'Plase Provied a Valid Email Adderess',
+                                    }
+                                })}
 
 
-                    <button onClick={() => signInWithGoogle()} class="btn btn-outline">CONTINUE WITH GOOGLE</button>
+                            />
+
+
+                            <label className="label">
+                                {errors.email?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.email.message}</span>}
+                                {errors.email?.type === 'pattern' && <span className="label-text-alt  text-red-500 text-sm">{errors.email.message}</span>}
+
+
+                            </label>
+                        </div>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Password</span>
+
+                            </label>
+
+                            <input type="password"
+                                placeholder="Type here"
+                                className="input input-bordered w-full max-w-xs"
+                                {...register("password", {
+
+                                    required: {
+                                        value: true,
+                                        message: 'Please Enter A Password'
+                                    },
+
+                                    minLength: {
+                                        value: 6,
+                                        message: 'Plase Provied A password whice content more than 6 letter'
+                                    }
+                                })}
+
+
+                            />
+
+
+                            <label className="label">
+                                {errors.password?.type === 'required' && <span className="label-text-alt text-red-500 text-sm">{errors.password.message}</span>}
+                                {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500 text-sm">{errors.password.message}</span>}
+
+
+                            </label>
+                        </div>
+                        {signInLoading}
+
+                        {allErrors}
+
+                        <input className='btn  w-full max-w-xs' type="submit" value="Login" />
+                    </form>
+
+
+
+                    <div className="divider">OR</div>
+
+
+
+
+                    <button onClick={() => signInWithGoogle()} className="btn btn-outline">CONTINUE WITH GOOGLE</button>
 
 
 
