@@ -1,78 +1,104 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from './../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-
-
-const Login = () => {
-
-
-
+const SignUp = () => {
 
 
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
 
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
 
 
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
 
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
 
     let signInLoading;
     let allErrors;
 
-    if (loading || gLoading) {
+    const navigate = useNavigate()
+    if (loading || gLoading || updating) {
         // signInLoading = <progress class="progress w-full"></progress>
         return <Loading></Loading>
 
     }
 
-    if (error || gError) {
+    if (error || gError || updateError) {
 
-        allErrors = `${error?.message || gError?.message}`
+        allErrors = `${error?.message || gError?.message || updateError?.message} `
 
     }
 
 
 
-
-
-
-
-    const onSubmit = data => {
+    const onSubmit = async data => {
         console.log(data)
-        signInWithEmailAndPassword(data.email, data.password)
+        await createUserWithEmailAndPassword(data.email, data.password)
+        await updateProfile({ displayName: data.name })
+
+
+
 
     };
 
 
     if (gUser || user) {
-        console.log(user || gUser)
+        console.log(user)
+        navigate('/')
 
     }
-
-
-
-
-
     return (
         <div className='flex justify-center items-center h-screen'>
             <div className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
-                    <h2 className="text-center text-2xl font-bold">Login</h2>
+                    <h2 className="text-center text-2xl font-bold">Sign Up</h2>
 
 
                     <form onSubmit={handleSubmit(onSubmit)}>
 
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+
+                            </label>
+
+                            <input type="text"
+                                placeholder="Your Name"
+                                className="input input-bordered w-full max-w-xs"
+                                {...register("name", {
+
+                                    required: {
+                                        value: true,
+                                        message: 'Name is Required'
+                                    },
+
+
+                                })}
+
+
+                            />
+
+
+                            <label className="label">
+                                {errors.name?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.name.message}</span>}
+
+
+
+                            </label>
+                        </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -80,7 +106,7 @@ const Login = () => {
                             </label>
 
                             <input type="text"
-                                placeholder="Type here"
+                                placeholder="Email Address"
                                 className="input input-bordered w-full max-w-xs"
                                 {...register("email", {
 
@@ -113,7 +139,7 @@ const Login = () => {
                             </label>
 
                             <input type="password"
-                                placeholder="Type here"
+                                placeholder="Password"
                                 className="input input-bordered w-full max-w-xs"
                                 {...register("password", {
 
@@ -146,7 +172,7 @@ const Login = () => {
                         <input className='btn  w-full max-w-xs' type="submit" value="Login" />
                     </form>
 
-                    <p className='text-lg'><small>New to Doctors Portal? <Link className='text-secondary' to='/signup'>Create new account</Link ></small></p>
+                    <p className='text-lg'><small>Already Have Account? <Link className='text-secondary' to='/login'>Sign Up</Link ></small></p>
 
 
 
@@ -165,4 +191,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
