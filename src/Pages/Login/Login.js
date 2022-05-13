@@ -3,7 +3,8 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 import auth from './../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 
 
@@ -27,8 +28,9 @@ const Login = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    let signInLoading;
+
     let allErrors;
+    const navigate = useNavigate()
 
     if (loading || gLoading) {
         // signInLoading = <progress class="progress w-full"></progress>
@@ -57,6 +59,7 @@ const Login = () => {
 
     if (gUser || user) {
         console.log(user || gUser)
+        navigate('/')
 
     }
 
@@ -139,7 +142,7 @@ const Login = () => {
 
                             </label>
                         </div>
-                        {signInLoading}
+
 
                         {allErrors}
 
