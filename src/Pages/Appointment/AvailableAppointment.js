@@ -3,27 +3,40 @@ import { set } from 'date-fns/esm';
 import React, { useState, useEffect } from 'react';
 import BookingModal from './BookingModal';
 import Service from './Service';
+import { useQuery } from 'react-query';
+import Loading from "../Shared/Loading/Loading"
 
 
 const AvailableAppointment = ({ date }) => {
 
+    const fomatedDate = format(date || new Date(), 'PP')
 
-    const [services, setServices] = useState([])
     const [treatment, setTreatment] = useState(null)
 
-    useEffect(() => {
+    // const [services, setServices] = useState([])
+    // useEffect(() => {
 
-        fetch(`http://localhost:5000/services`)
-            // fetch(`services.json`)
+    //     fetch(`http://localhost:5000/available?date=${fomatedDate}`)
+    //         // fetch(`services.json`)
 
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data)
+    //             setServices(data)
+    //         })
+
+    // }, [fomatedDate])
+
+
+    const { data: services, isLoading, refetch } = useQuery(['available', fomatedDate], () =>
+
+        fetch(`http://localhost:5000/available?date=${fomatedDate}`)
             .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setServices(data)
-            })
 
-    }, [])
-
+    )
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div>
@@ -31,7 +44,7 @@ const AvailableAppointment = ({ date }) => {
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-12'>
                 {
-                    services.map(service => <Service
+                    services?.map(service => <Service
                         key={service._id}
                         service={service}
                         setTreatment={setTreatment}></Service>)
@@ -42,7 +55,8 @@ const AvailableAppointment = ({ date }) => {
                 treatment && <BookingModal
                     treatment={treatment}
                     date={date}
-                    setTreatment={setTreatment}></BookingModal>
+                    setTreatment={setTreatment}
+                    refetch={refetch}></BookingModal>
             }
 
         </div>
