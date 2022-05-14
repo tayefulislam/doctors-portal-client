@@ -14,6 +14,8 @@ const AvailableAppointment = ({ date }) => {
     useEffect(() => {
 
         fetch(`http://localhost:5000/services`)
+            // fetch(`services.json`)
+
             .then(res => res.json())
             .then(data => {
                 console.log(data)

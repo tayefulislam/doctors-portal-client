@@ -4,7 +4,8 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfil
 import auth from './../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading/Loading';
-import { Link, useNavigate } from 'react-router-dom';
+
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const SignUp = () => {
 
@@ -30,8 +31,15 @@ const SignUp = () => {
     let allErrors;
 
     const navigate = useNavigate()
+
+
+
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+
     if (loading || gLoading || updating) {
-        // signInLoading = <progress class="progress w-full"></progress>
+        // signInLoading = <progress className="progress w-full"></progress>
         return <Loading></Loading>
 
     }
@@ -48,16 +56,15 @@ const SignUp = () => {
         console.log(data)
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name })
-
-
-
+        // navigate(from, { replace: true });
 
     };
 
 
     if (gUser || user) {
         console.log(user)
-        navigate('/')
+        // navigate('/')
+        navigate(from, { replace: true });
 
     }
     return (

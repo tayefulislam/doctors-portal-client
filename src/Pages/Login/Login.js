@@ -37,7 +37,7 @@ const Login = () => {
 
 
     if (loading || gLoading) {
-        // signInLoading = <progress class="progress w-full"></progress>
+        // signInLoading = <progress className="progress w-full"></progress>
         return <Loading></Loading>
 
     }
