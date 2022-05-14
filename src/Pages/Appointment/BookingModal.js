@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import { toast } from 'react-toastify';
 
 const BookingModal = ({ treatment, date, setTreatment }) => {
 
@@ -18,7 +19,7 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
         const slot = event.target.time.value;
 
         const patientName = event.target.name.value;
-        const email = event.target.email.value;
+        const patientEmail = event.target.email.value;
         const phone = event.target.number.value;
 
         const booking = {
@@ -27,7 +28,7 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
             date,
             slot,
             patientName,
-            email,
+            patientEmail,
             phone
         }
 
@@ -42,6 +43,18 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
+
+                if (data.success) {
+
+                    toast(`Appiontment Booked for ${slot} on ${date}`)
+
+                }
+
+                if (!data.success) {
+
+                    toast(`You Have already  Booked for ${slot} on ${date}`)
+                }
+
                 setTreatment(null)
             })
 
