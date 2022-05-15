@@ -30,6 +30,8 @@ const AvailableAppointment = ({ date }) => {
 
     const { data: services, isLoading, refetch } = useQuery(['available', fomatedDate], () =>
 
+        // fetch(`https://api.priyopathshala.com/available?date=${fomatedDate}`)
+
         fetch(`http://localhost:5000/available?date=${fomatedDate}`)
             .then(res => res.json())
 

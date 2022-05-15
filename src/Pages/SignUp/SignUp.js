@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading/Loading';
 
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
 
@@ -22,6 +23,10 @@ const SignUp = () => {
 
 
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
+
+
+    const [token] = useToken(user || gUser)
 
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -56,6 +61,9 @@ const SignUp = () => {
         console.log(data)
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name })
+
+
+
         // navigate(from, { replace: true });
 
     };
@@ -64,7 +72,7 @@ const SignUp = () => {
     if (gUser || user) {
         console.log(user)
         // navigate('/')
-        navigate(from, { replace: true });
+        // navigate(from, { replace: true });
 
     }
     return (

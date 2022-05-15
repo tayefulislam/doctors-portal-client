@@ -12,7 +12,12 @@ const MyAppointment = () => {
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?patientEmail=${user.email}`)
+        const url = `http://localhost:5000/booking?patientEmail=${user.email}`
+
+        // const url = `https://api.priyopathshala.com/booking?patientEmail=${user.email}`
+
+
+        fetch(url)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
