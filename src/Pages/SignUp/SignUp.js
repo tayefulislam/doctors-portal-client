@@ -75,6 +75,10 @@ const SignUp = () => {
         // navigate(from, { replace: true });
 
     }
+
+    if (token) {
+        navigate(from, { replace: true });
+    }
     return (
         <div className='flex justify-center items-center h-screen'>
             <div className="card w-96 bg-base-100 shadow-xl">

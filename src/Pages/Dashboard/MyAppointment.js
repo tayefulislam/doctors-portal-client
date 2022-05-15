@@ -17,17 +17,33 @@ const MyAppointment = () => {
         // const url = `https://api.priyopathshala.com/booking?patientEmail=${user.email}`
 
 
-        fetch(url)
-            .then(res => res.json())
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => {
+
+                if (res.status === 200) {
+                    return res.json()
+                }
+
+                if (res.status === 401 || res.status === 403) {
+
+
+                }
+
+            })
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setAppiontments(data)
             })
     }, [user])
 
     return (
         <div className="">
-            <h1 className='text-2xl mb-3'>My Appointment {appiontments.length}</h1>
+            <h1 className='text-2xl mb-3'>My Appointment {appiontments?.length}</h1>
 
             <div class="overflow-x-auto">
                 <table class="table w-full">
@@ -45,7 +61,7 @@ const MyAppointment = () => {
 
 
                         {
-                            appiontments.map((a, index) => <tr className="hover ">
+                            appiontments?.map((a, index) => <tr className="hover ">
                                 <th>{index + 1}</th>
                                 <td>{a?.patientEmail}</td>
                                 <td>{a?.treatment}</td>
