@@ -27,7 +27,7 @@ const UserRow = ({ user, index, refetch }) => {
             })
 
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 if (data.matchedCount > 0) {
                     refetch()
                     toast.success(`Admin Make Sussess Full`)
@@ -36,7 +36,7 @@ const UserRow = ({ user, index, refetch }) => {
 
     }
 
-    console.log(isAdmin)
+    // console.log(isAdmin)
 
     // const makeUser = () => {
     //     const url = `http://localhost:5000/user/user/${user.email}`;

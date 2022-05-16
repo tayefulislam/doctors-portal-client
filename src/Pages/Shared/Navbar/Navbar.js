@@ -3,10 +3,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import { signOut } from 'firebase/auth';
+import useAdmin from '../../../hooks/useAdmin'
 
 const Navbar = () => {
 
     const [user, loading, error] = useAuthState(auth);
+
+    const [admin] = useAdmin(user)
 
     const megamanu = <>
         <li><Link to='/'>Home</Link></li>
@@ -17,6 +20,8 @@ const Navbar = () => {
         {
             user && <li><Link to='/dashboard'>Dashboard</Link></li>
         }
+
+
         <li>{user ? <button onClick={() => {
 
             signOut(auth);
