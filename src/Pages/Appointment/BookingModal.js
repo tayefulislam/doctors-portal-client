@@ -32,7 +32,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
             phone
         }
 
-        fetch(`http://localhost:5000/booking`, {
+        fetch(`https://doctorapi.priyopathshala.com/booking`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

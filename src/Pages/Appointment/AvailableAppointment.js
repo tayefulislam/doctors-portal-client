@@ -16,7 +16,7 @@ const AvailableAppointment = ({ date }) => {
     // const [services, setServices] = useState([])
     // useEffect(() => {
 
-    //     fetch(`http://localhost:5000/available?date=${fomatedDate}`)
+    //     fetch(`https://doctorapi.priyopathshala.com/available?date=${fomatedDate}`)
     //         // fetch(`services.json`)
 
     //         .then(res => res.json())
@@ -32,7 +32,7 @@ const AvailableAppointment = ({ date }) => {
 
         // fetch(`https://api.priyopathshala.com/available?date=${fomatedDate}`)
 
-        fetch(`http://localhost:5000/available?date=${fomatedDate}`)
+        fetch(`https://doctorapi.priyopathshala.com/available?date=${fomatedDate}`)
             .then(res => res.json())
 
     )

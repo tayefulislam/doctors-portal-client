@@ -11,7 +11,7 @@ const UserRow = ({ user, index, refetch }) => {
 
 
     const makeAdmin = () => {
-        const url = `http://localhost:5000/user/admin/${user.email}`;
+        const url = `https://doctorapi.priyopathshala.com/user/admin/${user.email}`;
 
         fetch(url, {
             method: 'PUT',
@@ -29,8 +29,9 @@ const UserRow = ({ user, index, refetch }) => {
             .then(data => {
                 // console.log(data)
                 if (data.matchedCount > 0) {
-                    refetch()
+
                     toast.success(`Admin Make Sussess Full`)
+                    refetch()
                 }
             })
 
@@ -39,7 +40,7 @@ const UserRow = ({ user, index, refetch }) => {
     // console.log(isAdmin)
 
     // const makeUser = () => {
-    //     const url = `http://localhost:5000/user/user/${user.email}`;
+    //     const url = `https://doctorapi.priyopathshala.com/user/user/${user.email}`;
 
     //     fetch(url, {
     //         method: 'PUT',

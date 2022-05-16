@@ -12,7 +12,7 @@ const useAdmin = (user) => {
 
 
         if (email) {
-            const url = `http://localhost:5000/admin/${email}`;
+            const url = `https://doctorapi.priyopathshala.com/admin/${email}`;
             fetch(url, {
                 method: 'GET',
                 headers: {
