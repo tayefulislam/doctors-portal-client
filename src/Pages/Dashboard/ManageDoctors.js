@@ -4,7 +4,7 @@ import Loading from '../../Pages/Shared/Loading/Loading'
 
 const ManageDoctors = () => {
 
-    const url = `http://localhost:5000/doctors`
+    const url = `https://doctorapi.priyopathshala.com/doctors`
 
     const { data: doctors, isLoading } = useQuery('allDoctors', () => fetch(url, {
         method: 'GET',
