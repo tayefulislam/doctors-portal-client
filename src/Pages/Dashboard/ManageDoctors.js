@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import Loading from '../../Pages/Shared/Loading/Loading'
 
 const ManageDoctors = () => {
 
@@ -11,6 +12,11 @@ const ManageDoctors = () => {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()))
+
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
 
 
