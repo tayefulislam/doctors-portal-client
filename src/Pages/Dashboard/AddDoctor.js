@@ -1,26 +1,84 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
 import Loading from '../Shared/Loading/Loading';
 
 const AddDoctor = () => {
 
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
     const url = `http://localhost:5000/servicesName`;
     const { data: services, isLoading } = useQuery('servicesName', () => fetch(url).then(res => res.json()))
 
-    console.log(services)
+    // console.log(services)
 
-
+    const imgStorageKey = `9cd5e61d7a901b45375cbd68ce720bfe`;
 
 
     const onSubmit = async data => {
-        console.log(data)
 
-        //http://localhost:5000/serviceName
-        // navigate(from, { replace: true });
+        toast('Photo Is Uploading')
+        const formData = new FormData();
+
+        console.log(data)
+        const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`
+
+        const image = data.image[0];
+        formData.append('image', image)
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+
+            .then(res => res.json())
+            .then(result => {
+
+                if (result.success) {
+                    toast('Photo Is Uploaded')
+
+                    // console.log(result)
+                    const img = result.data.url;
+                    // console.log(img)
+
+                    const doctor = {
+                        image: img,
+                        name: data.name,
+                        email: data.email,
+                        speciality: data.speciality
+                    }
+                    console.log(doctor)
+
+                    // send to data base
+
+                    const url = `http://localhost:5000/addDoctor`
+
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            if (data.insertedId) {
+                                toast('Doctor Added')
+                                reset()
+                            }
+                        })
+
+                }
+
+            })
+
+
+
+
 
     };
 
@@ -126,6 +184,38 @@ const AddDoctor = () => {
 
                     <label className="label">
                         {errors.speciality?.type === 'required' && <span className="label-text-alt text-red-500 text-sm">{errors.speciality.message}</span>}
+
+                    </label>
+                </div>
+
+                <div className="form-control w-full max-w-xs">
+                    <label className="label">
+                        <span className="label-text">Name</span>
+
+                    </label>
+
+
+                    <input type="file"
+
+                        className="input input-bordered w-full max-w-xs"
+                        {...register("image", {
+
+                            required: {
+                                value: true,
+                                message: 'Name is Required'
+                            },
+
+
+                        })}
+
+
+                    />
+
+
+                    <label className="label">
+                        {errors.image?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.image.message}</span>}
+
+
 
                     </label>
                 </div>
