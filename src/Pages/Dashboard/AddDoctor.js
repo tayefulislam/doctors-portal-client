@@ -88,140 +88,142 @@ const AddDoctor = () => {
     }
 
     return (
-        <div>
+        <div >
 
-            <h1 className='text-2xl'>Add A Doctor</h1>
-
-
-            <form className='' onSubmit={handleSubmit(onSubmit)}>
-
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">Name</span>
-
-                    </label>
+            <h1 className='text-2xl text-center mt-1 mb-2'>Add A Doctor</h1>
 
 
-                    <input type="text"
-                        placeholder="Your Name"
-                        className="input input-bordered w-full max-w-xs"
-                        {...register("name", {
+            <div className='flex justify-center items-center'>
+                <form className='' onSubmit={handleSubmit(onSubmit)}>
 
-                            required: {
-                                value: true,
-                                message: 'Name is Required'
-                            },
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Name</span>
 
-
-                        })}
+                        </label>
 
 
-                    />
+                        <input type="text"
+                            placeholder="Your Name"
+                            className="input input-bordered w-full max-w-xs"
+                            {...register("name", {
+
+                                required: {
+                                    value: true,
+                                    message: 'Name is Required'
+                                },
 
 
-                    <label className="label">
-                        {errors.name?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.name.message}</span>}
+                            })}
+
+
+                        />
+
+
+                        <label className="label">
+                            {errors.name?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.name.message}</span>}
 
 
 
-                    </label>
-                </div>
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">Email</span>
+                        </label>
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Email</span>
 
-                    </label>
+                        </label>
 
-                    <input type="text"
-                        placeholder="Email Address"
-                        className="input input-bordered w-full max-w-xs"
-                        {...register("email", {
+                        <input type="text"
+                            placeholder="Email Address"
+                            className="input input-bordered w-full max-w-xs"
+                            {...register("email", {
 
-                            required: {
-                                value: true,
-                                message: 'Please Enter A Email Address'
+                                required: {
+                                    value: true,
+                                    message: 'Please Enter A Email Address'
+                                }
+                            })}
+
+
+                        />
+
+
+                        <label className="label">
+                            {errors.email?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.email.message}</span>}
+
+
+
+                        </label>
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Speciality</span>
+
+                        </label>
+
+                        <select
+                            type='text' class="select select-bordered w-full max-w-xs"
+                            {...register("speciality", {
+
+                                required: {
+                                    value: true,
+                                    message: 'Speciality is required'
+                                }
+                            })}
+
+                        >
+                            {
+                                services.map(service => <option
+                                    key={service?._id}
+                                    value={service?.name}>{service?.name}</option>)
                             }
-                        })}
 
-
-                    />
-
-
-                    <label className="label">
-                        {errors.email?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.email.message}</span>}
-
-
-
-                    </label>
-                </div>
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">Speciality</span>
-
-                    </label>
-
-                    <select
-                        type='text' class="select select-bordered w-full max-w-xs"
-                        {...register("speciality", {
-
-                            required: {
-                                value: true,
-                                message: 'Speciality is required'
-                            }
-                        })}
-
-                    >
-                        {
-                            services.map(service => <option
-                                key={service?._id}
-                                value={service?.name}>{service?.name}</option>)
-                        }
-
-                    </select>
+                        </select>
 
 
 
 
-                    <label className="label">
-                        {errors.speciality?.type === 'required' && <span className="label-text-alt text-red-500 text-sm">{errors.speciality.message}</span>}
+                        <label className="label">
+                            {errors.speciality?.type === 'required' && <span className="label-text-alt text-red-500 text-sm">{errors.speciality.message}</span>}
 
-                    </label>
-                </div>
+                        </label>
+                    </div>
 
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">Name</span>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Name</span>
 
-                    </label>
-
-
-                    <input type="file"
-
-                        className="input input-bordered w-full max-w-xs"
-                        {...register("image", {
-
-                            required: {
-                                value: true,
-                                message: 'Name is Required'
-                            },
+                        </label>
 
 
-                        })}
+                        <input type="file"
+
+                            className="input input-bordered w-full max-w-xs"
+                            {...register("image", {
+
+                                required: {
+                                    value: true,
+                                    message: 'Name is Required'
+                                },
 
 
-                    />
+                            })}
 
 
-                    <label className="label">
-                        {errors.image?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.image.message}</span>}
+                        />
+
+
+                        <label className="label">
+                            {errors.image?.type === 'required' && <span className="label-text-alt  text-red-500 text-sm">{errors.image.message}</span>}
 
 
 
-                    </label>
-                </div>
+                        </label>
+                    </div>
 
-                <input className='btn  w-full max-w-xs' type="submit" value="Add To Database" />
-            </form>
+                    <input className='btn  w-full max-w-xs' type="submit" value="Add To Database" />
+                </form>
+            </div>
 
         </div>
     );

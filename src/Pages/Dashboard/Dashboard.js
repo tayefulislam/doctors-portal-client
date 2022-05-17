@@ -19,7 +19,7 @@ const Dashboard = () => {
 
                 {/* <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> */}
 
-                <h1 className='text-center text-2xl mt-3'>Welcome to Dashboard</h1>
+                <h1 className='text-center text-4xl mt-3'>Welcome to Dashboard</h1>
 
                 <Outlet />
 
@@ -36,6 +36,7 @@ const Dashboard = () => {
                         admin && <>
                             <li><Link to='/dashboard/users'>All Users</Link></li>
                             <li><Link to='/dashboard/addDoctor'>Add Doctor</Link></li>
+                            <li><Link to='/dashboard/manageDoctors'>Manage Doctors</Link></li>
                         </>
                     }
 
