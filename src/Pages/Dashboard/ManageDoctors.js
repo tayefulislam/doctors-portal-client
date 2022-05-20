@@ -6,9 +6,9 @@ import DeleteComfirmModal from './DeleteComfirmModal';
 
 const ManageDoctors = () => {
 
-
     const [deletingDoctor, setDeletingDoctor] = useState(null)
-    const url = `http://localhost:5000/doctors`
+
+    const url = `http://localhost:5000/doctors`;
 
     const { data: doctors, isLoading } = useQuery('allDoctors', () => fetch(url, {
         method: 'GET',
@@ -40,7 +40,7 @@ const ManageDoctors = () => {
 
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Specialty</th>
                             <th>Action</th>

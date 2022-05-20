@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 
 const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
 
-    const { _id, name, slots } = treatment;
+    const { _id, name, slots, price } = treatment;
+    console.log(price)
 
     const [user, loading, error] = useAuthState(auth);
 
@@ -28,6 +29,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
             date,
             slot,
             patientName,
+            price,
             patientEmail,
             phone
         }
