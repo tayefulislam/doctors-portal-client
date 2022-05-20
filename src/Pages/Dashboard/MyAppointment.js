@@ -16,7 +16,7 @@ const MyAppointment = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const url = `https://doctorapi.priyopathshala.com/booking?patientEmail=${user.email}`
+        const url = `http://localhost:5000/booking?patientEmail=${user.email}`
 
         // const url = `https://api.priyopathshala.com/booking?patientEmail=${user.email}`
 

@@ -4,7 +4,7 @@ import Loading from '../../Pages/Shared/Loading/Loading'
 import UserRow from './UserRow';
 
 const AllUsers = () => {
-    const url = `https://doctorapi.priyopathshala.com/users`
+    const url = `http://localhost:5000/users`
     const { data: users, isLoading, refetch } = useQuery('allUsers', () =>
         fetch(url, {
             method: 'GET',

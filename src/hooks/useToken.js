@@ -18,7 +18,7 @@ const useToken = (user) => {
 
             // const url = `http://api.priyopathshala.com/user/${email}`;
 
-            const url = `https://doctorapi.priyopathshala.com/user/${email}`;
+            const url = `http://localhost:5000/user/${email}`;
 
             fetch(url, {
                 method: 'PUT',

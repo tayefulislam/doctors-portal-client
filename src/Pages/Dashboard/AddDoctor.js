@@ -9,7 +9,7 @@ const AddDoctor = () => {
 
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
-    const url = `https://doctorapi.priyopathshala.com/servicesName`;
+    const url = `http://localhost:5000/servicesName`;
     const { data: services, isLoading } = useQuery('servicesName', () => fetch(url).then(res => res.json()))
 
     // console.log(services)
@@ -53,7 +53,7 @@ const AddDoctor = () => {
 
                     // send to data base
 
-                    const url = `https://doctorapi.priyopathshala.com/addDoctor`
+                    const url = `http://localhost:5000/addDoctor`
 
                     fetch(url, {
                         method: "POST",
