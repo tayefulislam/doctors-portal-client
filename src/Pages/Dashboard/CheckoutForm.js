@@ -18,7 +18,9 @@ const CheckoutForm = ({ appointment }) => {
     const elements = useElements();
 
     const [cardError, setCardError] = useState('');
+    const [success, setSuccess] = useState('');
     const [clientSecret, setClientSecret] = useState('');
+    const [transactionId, setTransactionId] = useState('');
 
 
     useEffect(() => {
@@ -27,17 +29,22 @@ const CheckoutForm = ({ appointment }) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify({ price })
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
+                if (data?.clientSecret) {
+
+                    setClientSecret(data?.clientSecret)
+
+                }
             })
     }, [price])
 
-    // console.log(clientSecret)
+    console.log(clientSecret)
 
 
     const handleSubmit = async (event) => {
@@ -62,15 +69,52 @@ const CheckoutForm = ({ appointment }) => {
             card
         })
 
-        if (error) {
-            setCardError(error?.message || '')
 
+        setCardError(error?.message || '')
+
+        const { paymentIntent, error: intentError } = await stripe
+            .confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: appointment?.patientName,
+                        email: appointment?.patientEmail
+                    },
+                },
+            })
+
+        if (intentError) {
+            setCardError(intentError.message)
+            setSuccess('')
         }
 
         else {
-            console.log(paymentMethod)
-        }
+            setCardError('')
+            console.log(paymentIntent)
+            setTransactionId(paymentIntent.id)
+            setSuccess('Payment successful')
 
+            // srote data in database 
+
+            // const payment = {
+            //     transactionId: paymentIntent.id
+
+            // }
+
+            fetch(`http://localhost:5000/booking/${appointment?._id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                })
+
+
+        }
 
 
     }
@@ -95,12 +139,20 @@ const CheckoutForm = ({ appointment }) => {
                 />
 
 
-                <button className='btn btn-success btn-sm mt-3' type="submit" disabled={!stripe}>
+                <button className='btn btn-success btn-sm mt-3' type="submit" disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
             </form>
 
-            <p className='text-red-500'>{cardError}</p>
+            {
+                cardError && <p className='text-red-500'>{cardError}</p>
+            }
+            {
+                success && <div>
+                    <p className='text-green-500'>{success}</p>
+                    <p className='text-green-500'>{transactionId}</p>
+                </div>
+            }
         </>
     );
 };

@@ -19,9 +19,9 @@ const Payment = () => {
     console.log(data)
 
 
-    if (!data) {
-        return <Loading></Loading>
-    }
+    // if (!data) {
+    //     return <Loading></Loading>
+    // }
 
     return (
 
