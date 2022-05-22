@@ -4,8 +4,9 @@ import { useQuery } from 'react-query';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import { loadStripe } from '@stripe/stripe-js';
+import Loading from '../Shared/Loading/Loading';
 
-const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+const stripePromise = loadStripe('pk_test_51L1w1yF00OEb7B1tXOfmb6YasMxhiYdSzkn5KASD7a78M5y4XfSrwS0z2ZpJNgWFZYNWXcLO22RNXzAaPWWLeaqf00O1h6t7OZ');
 
 const Payment = () => {
     const { id } = useParams();
@@ -16,6 +17,11 @@ const Payment = () => {
         }
     }).then(res => res.json()))
     console.log(data)
+
+
+    if (!data) {
+        return <Loading></Loading>
+    }
 
     return (
 
@@ -32,7 +38,7 @@ const Payment = () => {
             </div>
             <div class="card-body w-full">
                 <Elements stripe={stripePromise}>
-                    <CheckoutForm />
+                    <CheckoutForm appointment={data} />
                 </Elements>
             </div>
         </div>

@@ -1,15 +1,43 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Loading from '../Shared/Loading/Loading';
 
 
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ appointment }) => {
+    console.log(appointment)
+
+
+
+    const price = appointment?.price
+
+
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const [cardError, setCardError] = useState('')
+    const [cardError, setCardError] = useState('');
+    const [clientSecret, setClientSecret] = useState('');
+
+
+    useEffect(() => {
+        const url = `http://localhost:5000/create-payment-intent`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({ price })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    }, [price])
+
+    // console.log(clientSecret)
 
 
     const handleSubmit = async (event) => {
