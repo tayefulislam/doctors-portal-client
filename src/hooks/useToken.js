@@ -11,7 +11,7 @@ const useToken = (user) => {
 
         // console.log('user token', user)
         const email = user?.user?.email;
-        const currentUser = { email: email };
+        const currentUser = { email: email, role: 'user' };
 
         if (email) {
 
