@@ -1,5 +1,6 @@
 # Project : Doctors Portal 
 
+[Live WebSite](https://doctors-portal-tayeful.netlify.app/) : https://doctors-portal-tayeful.netlify.app/
 
 - User  can sign up email address and social login.
 - In the appointment section, the appointment result will show as per the date & time available slots. Users can make payments. Payment info will update on the user and admin sides.
@@ -9,4 +10,4 @@
 
 ## Next Update:
 - User Can Meassge doctor.
-- Dynamic blog section will avaible .
+- Dynamic blog section will available .
